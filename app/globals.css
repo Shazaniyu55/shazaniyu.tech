@@ -215,6 +215,76 @@ section { padding: 72px 0; }
 .plink-code { border: 1.5px solid var(--line); color: var(--ink); background: var(--surface); }
 .plink-code:hover { border-color: var(--ink); }
 
+/* ---------- Project image slider ---------- */
+.pslider {
+  position: relative;
+  /* pull flush to the card edges (card padding is 24px) */
+  margin: -24px -24px 18px;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: var(--radius) var(--radius) 0 0;
+  background: linear-gradient(135deg, var(--green-tint), #eef1ec);
+  user-select: none;
+  outline: none;
+}
+.pslider:focus-visible { box-shadow: inset 0 0 0 3px var(--amber); }
+.pslider-track {
+  display: flex;
+  height: 100%;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.pslider-img {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* switch to `contain` if your shots are tall/mobile screens */
+  display: block;
+}
+.pslider-img.is-broken { visibility: hidden; }
+
+.pslider-nav {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 34px; height: 34px; border-radius: 50%;
+  border: none; cursor: pointer;
+  background: rgba(255, 255, 255, 0.85); color: var(--ink);
+  font-size: 1.4rem; line-height: 1;
+  display: grid; place-items: center;
+  opacity: 0; transition: opacity 0.2s, background 0.15s;
+  box-shadow: 0 4px 12px -4px rgba(16, 32, 26, 0.4);
+}
+.pslider-nav.prev { left: 10px; }
+.pslider-nav.next { right: 10px; }
+.pslider:hover .pslider-nav,
+.pslider:focus-within .pslider-nav { opacity: 1; }
+.pslider-nav:hover { background: #fff; }
+.pslider-nav:focus-visible { opacity: 1; outline: 3px solid var(--amber); outline-offset: 2px; }
+
+.pslider-dots {
+  position: absolute; bottom: 10px; left: 0; right: 0;
+  display: flex; justify-content: center; gap: 7px;
+}
+.pslider-dot {
+  width: 7px; height: 7px; border-radius: 50%; border: none; padding: 0;
+  cursor: pointer; background: rgba(255, 255, 255, 0.6);
+  transition: background 0.15s, width 0.15s;
+}
+.pslider-dot.active { background: #fff; width: 18px; border-radius: 999px; }
+
+.pslider-count {
+  position: absolute; top: 10px; right: 10px;
+  font-family: var(--font-mono); font-size: 0.68rem; font-weight: 600;
+  background: rgba(16, 32, 26, 0.6); color: #fff;
+  padding: 3px 8px; border-radius: 999px;
+  backdrop-filter: blur(4px);
+}
+
+@media (max-width: 640px) {
+  .pslider-nav { opacity: 1; } /* always show arrows on touch devices */
+}
+@media (prefers-reduced-motion: reduce) {
+  .pslider-track { transition: none; }
+}
+
 .repo-meta {
   display: flex; gap: 14px; font-family: var(--font-mono); font-size: 0.74rem;
   color: var(--ink-soft);
