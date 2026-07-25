@@ -1,6 +1,6 @@
 import { site, waLink } from "../lib/config";
 import GitHubProjects from "../components/GitHubProjects";
-import ProjectSlider from "../components/ProjectSlider";
+import ProjectSlider from "../components/projectslider";
 import {
   WhatsAppIcon,
   GitHubIcon,
